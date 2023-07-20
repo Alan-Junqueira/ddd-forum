@@ -40,6 +40,5 @@ describe('Delete question', () => {
         authorId: 'author-2'
       })
     ).rejects.toBeInstanceOf(Error)
-
   })
 })
