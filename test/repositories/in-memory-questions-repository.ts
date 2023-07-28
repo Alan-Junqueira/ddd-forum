@@ -2,8 +2,8 @@ import { IQuestionsRepository } from "@/domain/forum/application/repositories/qu
 import { Question } from "@/domain/forum/enterprise/entities/question";
 
 export class InMemoryQuestionsRepository implements IQuestionsRepository {
-
   public items: Question[] = []
+
   async create(question: Question) {
     this.items.push(question)
   }
@@ -32,5 +32,11 @@ export class InMemoryQuestionsRepository implements IQuestionsRepository {
     }
 
     return question
+  }
+
+  async save(question: Question): Promise<void> {
+    const itemIndex = this.items.findIndex(item => item.id === question.id)
+
+    this.items.splice(itemIndex, 1, question)
   }
 } 
