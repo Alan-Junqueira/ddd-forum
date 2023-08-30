@@ -1,19 +1,22 @@
+import { Either, left, right } from "@/core/either";
 import { AnswerComment } from "../../enterprise/entities/answer-comment";
 import { IAnswerCommentsRepository } from "../repositories/answer-comments-repository";
+import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 interface IFetchAnswerCommentsRequest {
   page: number;
   answerId: string;
 }
 
-interface IFetchAnswerCommentsResponse {
-  answerComments: AnswerComment[];
-}
+type IFetchAnswerCommentsResponse = Either<
+  ResourceNotFoundError,
+  {
+    answerComments: AnswerComment[];
+  }
+>;
 
 export class FetchAnswerCommentsUseCase {
-  constructor(
-    private answerCommentsRepository: IAnswerCommentsRepository
-  ) {}
+  constructor(private answerCommentsRepository: IAnswerCommentsRepository) {}
 
   async execute({
     page,
@@ -25,9 +28,9 @@ export class FetchAnswerCommentsUseCase {
       });
 
     if (!answerComments) {
-      throw new Error("Answers not found");
+      left(new ResourceNotFoundError());
     }
 
-    return { answerComments };
+    return right({ answerComments });
   }
 }
