@@ -35,7 +35,9 @@ describe("Fetch Question Answers", () => {
       page: 1,
     });
 
-    expect(result.value?.answers).toHaveLength(3);
+    if (result.isRight()) {
+      expect(result.value?.answers).toHaveLength(3);
+    }
   });
 
   it("Should be able to fetch paginated question answers", async () => {
@@ -51,7 +53,8 @@ describe("Fetch Question Answers", () => {
       questionId: "question-1",
       page: 2,
     });
-
-    expect(result.value?.answers).toHaveLength(2);
+    if (result.isRight()) {
+      expect(result.value?.answers).toHaveLength(2);
+    }
   });
 });

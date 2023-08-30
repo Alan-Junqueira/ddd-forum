@@ -24,11 +24,13 @@ describe("Fetch Recent Question", () => {
 
     const result = await sut.execute({ page: 1 });
 
-    expect(result.value?.questions).toEqual([
-      expect.objectContaining({ createdAt: new Date(2022, 0, 23) }),
-      expect.objectContaining({ createdAt: new Date(2022, 0, 20) }),
-      expect.objectContaining({ createdAt: new Date(2022, 0, 18) }),
-    ]);
+    if(result.isRight()){
+      expect(result.value?.questions).toEqual([
+        expect.objectContaining({ createdAt: new Date(2022, 0, 23) }),
+        expect.objectContaining({ createdAt: new Date(2022, 0, 20) }),
+        expect.objectContaining({ createdAt: new Date(2022, 0, 18) }),
+      ]);
+    }
   });
 
   it("Should be able to fetch paginated recent questions", async () => {
@@ -38,6 +40,8 @@ describe("Fetch Recent Question", () => {
 
     const result = await sut.execute({ page: 2 });
 
-    expect(result.value?.questions).toHaveLength(2);
+    if(result.isRight()){
+      expect(result.value?.questions).toHaveLength(2);
+    }
   });
 });

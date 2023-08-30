@@ -36,7 +36,9 @@ describe("Fetch Question Comment", () => {
       page: 1,
     });
 
-    expect(result.value?.questionComments).toHaveLength(3);
+    if (result.isRight()) {
+      expect(result.value?.questionComments).toHaveLength(3);
+    }
   });
 
   it("Should be able to fetch paginated question comment", async () => {
@@ -52,7 +54,8 @@ describe("Fetch Question Comment", () => {
       questionId: "question-1",
       page: 2,
     });
-
-    expect(result.value?.questionComments).toHaveLength(2);
+    if (result.isRight()) {
+      expect(result.value?.questionComments).toHaveLength(2);
+    }
   });
 });

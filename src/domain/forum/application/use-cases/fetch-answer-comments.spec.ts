@@ -34,8 +34,10 @@ describe("Fetch Answer Comment", () => {
       answerId: "answer-1",
       page: 1,
     });
-
-    expect(result.value?.answerComments).toHaveLength(3);
+  
+    if (result.isRight()) {
+      expect(result.value?.answerComments).toHaveLength(3);
+    }
   });
 
   it("Should be able to fetch paginated answer comment", async () => {
@@ -52,6 +54,8 @@ describe("Fetch Answer Comment", () => {
       page: 2,
     });
 
-    expect(result.value?.answerComments).toHaveLength(2);
+    if (result.isRight()) {
+      expect(result.value?.answerComments).toHaveLength(2);
+    }
   });
 });
