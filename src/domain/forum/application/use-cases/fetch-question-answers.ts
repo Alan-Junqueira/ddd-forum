@@ -1,7 +1,7 @@
 import { IAnswersRepository } from "../repositories/answers-repository";
 import { Answer } from "../../enterprise/entities/answer";
 import { Either, left, right } from "@/core/either";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
+import { ResourceNotFoundError } from "@/core/errors/errors/resource-not-found-error";
 
 interface IFetchQuestionAnswersRequest {
   page: number;
