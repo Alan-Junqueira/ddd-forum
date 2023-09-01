@@ -34,10 +34,7 @@ describe("Delete question", () => {
       makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityId("1"),
-      })
-    );
-
-    inMemoryQuestionAttachmentsRepository.items.push(
+      }),
       makeQuestionAttachment({
         questionId: newQuestion.id,
         attachmentId: new UniqueEntityId("2"),
