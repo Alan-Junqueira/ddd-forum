@@ -1,3 +1,4 @@
+import { DomainEvents } from "@/core/events/domain-events";
 import { IPaginationParams } from "@/core/repositories/pagination-params";
 import { IAnswerAttachmentsRepository } from "@/domain/forum/application/repositories/answer-attachments-repository";
 import { IAnswersRepository } from "@/domain/forum/application/repositories/answers-repository";
@@ -11,6 +12,8 @@ export class InMemoryAnswersRepository implements IAnswersRepository {
 
   async create(answer: Answer) {
     this.items.push(answer);
+
+    DomainEvents.dispatchEventsForAggregate(answer.id);
   }
 
   async delete(answer: Answer): Promise<void> {
@@ -18,6 +21,8 @@ export class InMemoryAnswersRepository implements IAnswersRepository {
 
     this.items.splice(itemIndex, 1);
     this.answerAttachmentsRepository.deleteManyByAnswerId(answer.id.toString());
+
+    DomainEvents.dispatchEventsForAggregate(answer.id);
   }
 
   async findById(id: string): Promise<Answer | null> {
