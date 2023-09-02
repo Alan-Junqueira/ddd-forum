@@ -3,13 +3,13 @@ import { Either, right } from "@/core/either";
 import { Notification } from "../../enterprise/entities/notification";
 import { INotificationsRepository } from "../repositories/notifications-repository";
 
-interface ISendNotificationUseCaseRequest {
+export interface ISendNotificationUseCaseRequest {
   recipientId: string;
   title: string;
   content: string;
 }
 
-type ISendNotificationUseCaseResponse = Either<
+export type TSendNotificationUseCaseResponse = Either<
   null,
   {
     notification: Notification;
@@ -23,7 +23,7 @@ export class SendNotificationUseCase {
     recipientId,
     content,
     title,
-  }: ISendNotificationUseCaseRequest): Promise<ISendNotificationUseCaseResponse> {
+  }: ISendNotificationUseCaseRequest): Promise<TSendNotificationUseCaseResponse> {
     const notification = Notification.create({
       recipientId: new UniqueEntityId(recipientId),
       title,
